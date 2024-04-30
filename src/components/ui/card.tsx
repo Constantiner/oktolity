@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { Slot } from "@radix-ui/react-slot";
 import { forwardRef, type HTMLAttributes } from "react";
 import { H3, P } from "./typography";
 
@@ -38,15 +37,6 @@ const CardTitle = forwardRef<
 		>
 			{children}
 		</H3>
-	);
-
-	const Comp = asChild ? Slot : H3;
-	return (
-		<Comp
-			ref={reference}
-			className={cn("text-2xl font-semibold leading-none tracking-tight", className)}
-			{...properties}
-		/>
 	);
 });
 CardTitle.displayName = "CardTitle";
