@@ -25,7 +25,10 @@ export const authOptions = {
 	providers: [
 		GitHubProvider({
 			clientId: env.GITHUB_ID,
-			clientSecret: env.GITHUB_SECRET
+			clientSecret: env.GITHUB_SECRET,
+			authorization: {
+				params: { scope: "read:user,user:email" }
+			}
 		})
 		/**
 		 * ...add more providers here.

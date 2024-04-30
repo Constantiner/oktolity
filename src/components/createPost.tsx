@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { api } from "@/trpc/react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 export function CreatePost(): JSX.Element {
 	const router = useRouter();
@@ -24,20 +26,10 @@ export function CreatePost(): JSX.Element {
 			}}
 			className="flex flex-col gap-2"
 		>
-			<input
-				type="text"
-				placeholder="Title"
-				value={name}
-				onChange={e => setName(e.target.value)}
-				className="w-full rounded-full px-4 py-2 text-black"
-			/>
-			<button
-				type="submit"
-				className="rounded-full bg-white/10 px-10 py-3 font-semibold transition hover:bg-white/20"
-				disabled={createPost.isPending}
-			>
+			<Input type="text" placeholder="Title" value={name} onChange={e => setName(e.target.value)} />
+			<Button variant="secondary" type="submit" disabled={createPost.isPending}>
 				{createPost.isPending ? "Submitting..." : "Submit"}
-			</button>
+			</Button>
 		</form>
 	);
 }

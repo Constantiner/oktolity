@@ -175,7 +175,7 @@ export default tsEslint.config(
 	},
 	{
 		files: reactFiles,
-		ignores: ["src/app/**", "src/trpc/react.tsx"],
+		ignores: ["src/app/**", "src/trpc/react.tsx", "src/components/ui/**"],
 		plugins: { "react-refresh": reactRefresh },
 		rules: {
 			"react-refresh/only-export-components": ["warn", { allowConstantExport: true }]
