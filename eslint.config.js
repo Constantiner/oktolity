@@ -60,9 +60,9 @@ export default tsEslint.config(
 	...compat.config({
 		extends: ["plugin:tailwindcss/recommended"]
 	}),
+	eslintPluginUnicorn.configs["flat/recommended"],
 	{
 		// Unicorn
-		...eslintPluginUnicorn.configs["flat/recommended"],
 		rules: {
 			"unicorn/filename-case": ["error", { case: "camelCase" }],
 			"unicorn/no-fn-reference-in-iterator": "off",

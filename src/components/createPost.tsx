@@ -20,13 +20,13 @@ export function CreatePost(): JSX.Element {
 
 	return (
 		<form
-			onSubmit={e => {
-				e.preventDefault();
+			onSubmit={event_ => {
+				event_.preventDefault();
 				createPost.mutate({ name });
 			}}
 			className="flex flex-col gap-2"
 		>
-			<Input type="text" placeholder="Title" value={name} onChange={e => setName(e.target.value)} />
+			<Input type="text" placeholder="Title" value={name} onChange={event_ => setName(event_.target.value)} />
 			<Button variant="secondary" type="submit" disabled={createPost.isPending}>
 				{createPost.isPending ? "Submitting..." : "Submit"}
 			</Button>

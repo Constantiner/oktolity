@@ -12,11 +12,11 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { getServerAuthSession } from "@/server/auth";
-import { db, type DbClient } from "@/server/db";
+import { database, type DatabaseClient } from "@/server/database";
 import type { Session } from "next-auth";
 
 export type TRPCContext = {
-	db: DbClient;
+	db: DatabaseClient;
 	session: Session | null;
 	headers: Headers;
 };
@@ -33,13 +33,13 @@ export type TRPCContext = {
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: { headers: Headers }): Promise<TRPCContext> => {
+export const createTRPCContext = async (options: { headers: Headers }): Promise<TRPCContext> => {
 	const session = await getServerAuthSession();
 
 	return {
-		db,
+		db: database,
 		session,
-		...opts
+		...options
 	};
 };
 
