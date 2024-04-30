@@ -192,5 +192,11 @@ export default tsEslint.config(
 		rules: {
 			"@typescript-eslint/ban-ts-comment": "off"
 		}
+	},
+	{
+		files: ["src/components/ui/**"],
+		rules: {
+			"unicorn/filename-case": ["off"]
+		}
 	}
 );

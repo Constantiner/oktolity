@@ -1,7 +1,9 @@
-import "@/styles/globals.css";
-import { Inter, Merriweather, Oswald, PT_Mono } from "next/font/google";
-import { TRPCReactProvider } from "@/trpc/react";
+import { Header } from "@/components/layout/header/header";
+import { ThemeProvider } from "@/components/themeProvider";
 import { cn } from "@/lib/utils";
+import "@/styles/globals.css";
+import { TRPCReactProvider } from "@/trpc/react";
+import { Inter, Merriweather, Oswald, PT_Mono } from "next/font/google";
 
 const headerFont = Oswald({
 	subsets: ["cyrillic-ext", "latin-ext"],
@@ -40,12 +42,13 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</head>
 			<body
+				suppressHydrationWarning
 				className={cn(
 					"min-h-screen bg-background font-body font-normal text-foreground antialiased",
 					headerFont.variable,
@@ -54,7 +57,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
 					serviceFont.variable
 				)}
 			>
-				<TRPCReactProvider>{children}</TRPCReactProvider>
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+					<TRPCReactProvider>
+						<div className="relative flex min-h-screen flex-col">
+							<Header />
+							<>{children}</>
+						</div>
+					</TRPCReactProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);
