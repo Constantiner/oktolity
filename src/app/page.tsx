@@ -56,19 +56,21 @@ export default async function Home(): Promise<JSX.Element> {
 						</CardFooter>
 					</Card>
 				</div>
-				<div className="flex flex-col items-center gap-2">
-					<P weight="normal" variant="muted" size="lg">
-						{hello ? hello.greeting : "Loading tRPC query..."}
-					</P>
-
-					<div className="flex flex-col items-center justify-center gap-4">
+				<Card className="flex flex-col items-center gap-2" variant="borderless">
+					<CardHeader>
+						<CardTitle asChild>
+							<H2>{hello ? hello.greeting : "Loading tRPC query..."}</H2>
+						</CardTitle>
+					</CardHeader>
+					<CardContent>
 						<P variant="secondary" size="sm" className="text-center">
 							{session && <span>Logged in as {session.user?.name}</span>}
 						</P>
+					</CardContent>
+					<CardFooter>
 						<AuthButton session={session} />
-					</div>
-				</div>
-
+					</CardFooter>
+				</Card>
 				<CrudShowcase />
 			</div>
 		</main>
