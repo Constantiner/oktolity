@@ -2,7 +2,7 @@ import { AuthButton } from "@/components/authButton";
 import { CreatePost } from "@/components/createPost";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { H1, P } from "@/components/ui/typography";
+import { H1, H2, P } from "@/components/ui/typography";
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
 import Link from "next/link";
@@ -20,7 +20,9 @@ export default async function Home(): Promise<JSX.Element> {
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
 					<Card>
 						<CardHeader>
-							<CardTitle>First Steps →</CardTitle>
+							<CardTitle asChild>
+								<H2>First Steps →</H2>
+							</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<P>
@@ -38,7 +40,9 @@ export default async function Home(): Promise<JSX.Element> {
 					</Card>
 					<Card>
 						<CardHeader>
-							<CardTitle>Documentation →</CardTitle>
+							<CardTitle asChild>
+								<H2>Documentation →</H2>
+							</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<P>Learn more about Create T3 App, the libraries it uses, and how to deploy it.</P>

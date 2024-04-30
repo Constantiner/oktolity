@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
-import { H3, P } from "./typography";
+import { Slot } from "@radix-ui/react-slot";
 import { forwardRef, type HTMLAttributes } from "react";
+import { H3, P } from "./typography";
 
 const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
 	<div ref={ref} className={cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)} {...props} />
@@ -12,11 +13,42 @@ const CardHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({
 ));
 CardHeader.displayName = "CardHeader";
 
-const CardTitle = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLHeadingElement>>(
-	({ className, ...props }, ref) => (
-		<H3 ref={ref} className={cn("text-2xl font-semibold leading-none tracking-tight", className)} {...props} />
-	)
-);
+const CardTitle = forwardRef<
+	HTMLParagraphElement,
+	HTMLAttributes<HTMLHeadingElement> & {
+		asChild?: boolean;
+	}
+>(({ className, asChild, ...properties }, reference) => {
+	if (!asChild) {
+		return (
+			<H3
+				ref={reference}
+				className={cn("text-2xl font-semibold leading-none tracking-tight", className)}
+				{...properties}
+			/>
+		);
+	}
+	const { children, ...rest } = properties;
+	return (
+		<H3
+			ref={reference}
+			className={cn("text-2xl font-semibold leading-none tracking-tight", className)}
+			{...rest}
+			asChild
+		>
+			{children}
+		</H3>
+	);
+
+	const Comp = asChild ? Slot : H3;
+	return (
+		<Comp
+			ref={reference}
+			className={cn("text-2xl font-semibold leading-none tracking-tight", className)}
+			{...properties}
+		/>
+	);
+});
 CardTitle.displayName = "CardTitle";
 
 const CardDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
@@ -36,4 +68,4 @@ const CardFooter = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({
 ));
 CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };
