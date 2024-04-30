@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import nextPlugin from "@next/eslint-plugin-next";
 import stylisticJs from "@stylistic/eslint-plugin-js";
@@ -17,6 +18,8 @@ import tsEslint from "typescript-eslint";
 
 const ecmaVersion = 2022;
 const reactFiles = ["**/*.{jsx,tsx}", "src/**"];
+
+const compat = new FlatCompat();
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default tsEslint.config(
@@ -54,6 +57,9 @@ export default tsEslint.config(
 		}
 	},
 	eslintPluginPrettierRecommended,
+	...compat.config({
+		extends: ["plugin:tailwindcss/recommended"]
+	}),
 	{
 		// Unicorn
 		...eslintPluginUnicorn.configs["flat/recommended"],

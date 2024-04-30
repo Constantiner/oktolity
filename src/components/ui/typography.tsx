@@ -3,11 +3,11 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef, type FunctionComponent, type HTMLAttributes, type PropsWithChildren } from "react";
 
-const h1Variants = cva("scroll-m-20 tracking-tight not-italic first:mt-0 mb-0", {
+const h1Variants = cva("mb-0 scroll-m-20 not-italic tracking-tight first:mt-0", {
 	variants: {
 		variant: {
-			default: "text-foreground font-bold",
-			muted: "text-muted-foreground font-black"
+			default: "font-bold text-foreground",
+			muted: "font-black text-muted-foreground"
 		},
 		family: {
 			service: "font-service",
@@ -41,11 +41,11 @@ export const H1 = forwardRef<HTMLHeadingElement, H1Properties>(
 );
 H1.displayName = "H1";
 
-const h2Variants = cva("scroll-m-20 tracking-tight not-italic transition-colors first:mt-0 mb-0 font-header", {
+const h2Variants = cva("mb-0 scroll-m-20 font-header not-italic tracking-tight transition-colors first:mt-0", {
 	variants: {
 		variant: {
-			default: "text-foreground font-semibold",
-			muted: "text-muted-foreground font-bold"
+			default: "font-semibold text-foreground",
+			muted: "font-bold text-muted-foreground"
 		},
 		size: {
 			normal: "text-2xl md:text-3xl lg:text-4xl",
@@ -70,11 +70,11 @@ export const H2 = forwardRef<HTMLHeadingElement, H2Properties>(
 );
 H2.displayName = "H2";
 
-const h3Variants = cva("scroll-m-20 tracking-tight not-italic transition-colors font-header first:mt-0 mb-0", {
+const h3Variants = cva("mb-0 scroll-m-20 font-header not-italic tracking-tight transition-colors first:mt-0", {
 	variants: {
 		variant: {
-			default: "text-secondary-foreground font-semibold",
-			muted: "text-muted-foreground font-black"
+			default: "font-semibold text-secondary-foreground",
+			muted: "font-black text-muted-foreground"
 		},
 		size: {
 			normal: "text-xl md:text-2xl lg:text-3xl",
@@ -140,7 +140,7 @@ export const pVariantsConfig = {
 	}
 } as const;
 
-const pVariants = cva("leading-7 break-words", {
+const pVariants = cva("break-words leading-7", {
 	...pVariantsConfig,
 	defaultVariants: {
 		variant: "normal",
@@ -169,7 +169,7 @@ export const P = forwardRef<HTMLParagraphElement, PProperties>(
 );
 P.displayName = "P";
 
-const blockquoteVariants = cva("[&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6 lg:pl-6 pl-4 italic", {
+const blockquoteVariants = cva("pl-4 italic lg:pl-6 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6", {
 	variants: {
 		variant: {
 			default: "border-l-2",
@@ -179,7 +179,7 @@ const blockquoteVariants = cva("[&:not(:first-child)]:mt-4 md:[&:not(:first-chil
 			default: "text-sm md:text-base lg:text-lg",
 			md: "text-base md:text-lg lg:text-xl",
 			sm: "text-xs md:text-sm lg:text-base",
-			lg: "text-lg md:text-xl lg:text-2xl tracking-tight",
+			lg: "text-lg tracking-tight md:text-xl lg:text-2xl",
 			xl: "text-xl md:text-2xl lg:text-3xl",
 			xxl: "text-5xl md:text-7xl"
 		}
@@ -202,7 +202,7 @@ export const Blockquote = forwardRef<HTMLQuoteElement, BlockquoteProperties>(
 		return variant === "quoteMark" ? (
 			<Comp className={cn(blockquoteVariants({ variant, size, className }))} ref={reference} {...properties}>
 				<svg
-					className="mb-2 block h-6 w-6 text-muted-foreground md:mb-3 md:h-7 md:w-7 lg:mb-4 lg:h-8 lg:w-8"
+					className="mb-2 block size-6 text-muted-foreground md:mb-3 md:size-7 lg:mb-4 lg:size-8"
 					aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg"
 					fill="currentColor"
