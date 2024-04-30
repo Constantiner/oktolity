@@ -18,13 +18,13 @@ export default async function Home(): Promise<JSX.Element> {
 					Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
 				</H1>
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-					<Card>
+					<Card className="flex flex-col">
 						<CardHeader>
 							<CardTitle asChild>
 								<H2>First Steps →</H2>
 							</CardTitle>
 						</CardHeader>
-						<CardContent>
+						<CardContent className="flex-1">
 							<P>
 								Just the basics - Everything you need to know to set up your database and
 								authentication.
@@ -33,24 +33,24 @@ export default async function Home(): Promise<JSX.Element> {
 						<CardFooter>
 							<Button asChild>
 								<Link href="https://create.t3.gg/en/usage/first-steps" target="_blank">
-									Learn more
+									Learn T3 Stack
 								</Link>
 							</Button>
 						</CardFooter>
 					</Card>
-					<Card>
+					<Card className="flex flex-col">
 						<CardHeader>
 							<CardTitle asChild>
 								<H2>Documentation →</H2>
 							</CardTitle>
 						</CardHeader>
-						<CardContent>
+						<CardContent className="flex-1">
 							<P>Learn more about Create T3 App, the libraries it uses, and how to deploy it.</P>
 						</CardContent>
 						<CardFooter>
 							<Button asChild>
 								<Link href="https://create.t3.gg/en/introduction" target="_blank">
-									Learn more
+									Read Documentation
 								</Link>
 							</Button>
 						</CardFooter>
