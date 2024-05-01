@@ -6,6 +6,8 @@ import { H1, H2, P } from "@/components/ui/typography";
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
 import Link from "next/link";
+import type { FunctionComponent } from "react";
+import { P as Pattern, match } from "ts-pattern";
 
 export default async function Home(): Promise<JSX.Element> {
 	const hello = await api.post.hello({ text: "from tRPC" });
@@ -77,21 +79,26 @@ export default async function Home(): Promise<JSX.Element> {
 	);
 }
 
-async function CrudShowcase(): Promise<JSX.Element | null> {
+const CrudShowcase: FunctionComponent = async () => {
 	const session = await getServerAuthSession();
-	if (!session?.user) return null;
+	return match(session)
+		.with(Pattern.nullish, () => null)
+		.otherwise(session =>
+			match(session.user)
+				.with(Pattern.nullish, () => null)
+				.otherwise(async () => {
+					const latestPost = await api.post.getLatest();
 
-	const latestPost = await api.post.getLatest();
-
-	return (
-		<div className="w-full max-w-xs">
-			{latestPost ? (
-				<P className="truncate">Your most recent post: {latestPost.name}</P>
-			) : (
-				<P variant="muted">You have no posts yet.</P>
-			)}
-
-			<CreatePost />
-		</div>
-	);
-}
+					return (
+						<div className="w-full max-w-xs">
+							{match(latestPost)
+								.with(Pattern.nullish, () => <P variant="muted">You have no posts yet.</P>)
+								.otherwise(latestPost => (
+									<P className="truncate">Your most recent post: {latestPost.name}</P>
+								))}
+							<CreatePost />
+						</div>
+					);
+				})
+		);
+};

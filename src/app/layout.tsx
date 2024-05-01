@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import { TRPCReactProvider } from "@/trpc/react";
 import { Inter, Merriweather, Oswald, PT_Mono } from "next/font/google";
+import type { PropsWithChildren } from "react";
 
 const headerFont = Oswald({
 	subsets: ["cyrillic-ext", "latin-ext"],
@@ -40,7 +41,7 @@ export const metadata = {
 	icons: [{ rel: "icon", url: "/favicon.ico" }]
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
+export default function RootLayout({ children }: PropsWithChildren): JSX.Element {
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
