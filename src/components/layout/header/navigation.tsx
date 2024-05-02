@@ -22,7 +22,7 @@ const getAbbreviation = (name?: string | null): string =>
 
 const UserAvatar: FunctionComponent<{ user: Session["user"]; className?: string }> = ({ user, className }) => (
 	<Avatar aria-label={user.name ?? undefined} className={className}>
-		<AvatarImage src={user.image ?? undefined} />
+		<AvatarImage src={user.image ?? undefined} alt={user.name ?? undefined} />
 		<AvatarFallback>{getAbbreviation(user.name)}</AvatarFallback>
 	</Avatar>
 );
