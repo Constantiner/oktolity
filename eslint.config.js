@@ -116,11 +116,18 @@ export default tsEslint.config(
 	{
 		...nodePlugin.configs["flat/recommended"],
 		rules: {
+			...nodePlugin.configs["flat/recommended"].rules,
 			"no-restricted-syntax": ["off"],
 			"n/no-unsupported-features/es-syntax": [
 				"error",
 				{
 					ignores: ["modules"]
+				}
+			],
+			"n/no-missing-import": [
+				"error",
+				{
+					tryExtensions: [".js", ".jsx", ".ts", ".tsx"]
 				}
 			]
 		},
