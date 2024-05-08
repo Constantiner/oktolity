@@ -1,3 +1,4 @@
+import { DashboardProvider } from "@/components/layout/header/dashboardProvider";
 import { Header } from "@/components/layout/header/header";
 import { ThemeProvider } from "@/components/themeProvider";
 import { cn } from "@/lib/tailwindUtil";
@@ -5,7 +6,6 @@ import "@/styles/globals.css";
 import { TRPCReactProvider } from "@/trpc/react";
 import { Inter, Merriweather, Oswald, PT_Mono } from "next/font/google";
 import type { PropsWithChildren } from "react";
-import { headers } from "next/headers";
 
 const headerFont = Oswald({
 	subsets: ["cyrillic-ext", "latin-ext"],
@@ -43,8 +43,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: PropsWithChildren): JSX.Element {
-	const pathname = headers().get("x-next-pathname") as string;
-	const isDashboard = pathname.startsWith("/dashboard");
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
@@ -63,10 +61,12 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
 			>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<TRPCReactProvider>
-						<div className="relative flex min-h-screen flex-col">
-							<Header className={isDashboard ? "dashboard" : undefined} />
-							<>{children}</>
-						</div>
+						<DashboardProvider>
+							<div className="relative flex min-h-screen flex-col">
+								<Header />
+								<>{children}</>
+							</div>
+						</DashboardProvider>
 					</TRPCReactProvider>
 				</ThemeProvider>
 			</body>

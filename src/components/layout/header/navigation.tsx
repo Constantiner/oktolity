@@ -6,6 +6,7 @@ import { auth } from "@/server/auth";
 import type { Session } from "next-auth";
 import type { FunctionComponent } from "react";
 import { P, match } from "ts-pattern";
+import { DashboardItem } from "./navigation/dashboardItem";
 import { LogOutItem } from "./navigation/logOutItem";
 import { ModeToggle } from "./themeToggle";
 
@@ -52,6 +53,8 @@ export async function Navigation(): Promise<JSX.Element> {
 								</section>
 							</SheetHeader>
 							<Separator className="mt-4 md:hidden" />
+							<DashboardItem className="md:mt-4" />
+							<div className="flex-1"></div>
 							<LogOutItem className="md:mt-4" />
 						</SheetContent>
 					</Sheet>
