@@ -30,7 +30,7 @@
 		"build:dev": "npx next build",
 		"db:push": "npx prisma db push",
 		"db:studio": "npx prisma studio",
-		"dev": "npx next dev --turbo",
+		"dev": "npx next dev",
 		"format": "npx prettier --write '**/*.{js,cjs,mjs,ts,jsx,tsx,css,scss,json,htm,html,yml,lintstagedrc,stylelintrc}'",
 		"postinstall": "npx prisma generate",
 		"lint": "npx tsc --noEmit && npx eslint . --report-unused-disable-directives --max-warnings 0",
@@ -48,17 +48,20 @@
 		"@radix-ui/react-separator": "^1.0.3",
 		"@radix-ui/react-slot": "^1.0.2",
 		"@t3-oss/env-nextjs": "^0.10.1",
-		"@tanstack/react-query": "^5.32.0",
+		"@tanstack/react-query": "^5.35.1",
 		"@trpc/client": "next",
 		"@trpc/react-query": "next",
 		"@trpc/server": "next",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"cmdk": "^1.0.0",
-		"lucide-react": "^0.376.0",
+		"crypto": "^1.0.1",
+		"date-fns": "^3.6.0",
+		"lucide-react": "^0.378.0",
 		"next": "^14.2.3",
-		"next-auth": "^4.24.7",
+		"next-auth": "5.0.0-beta.17",
 		"next-themes": "^0.3.0",
+		"octokit": "^3.2.1",
 		"react": "18.3.1",
 		"react-dom": "18.3.1",
 		"server-only": "^0.0.1",
@@ -66,17 +69,17 @@
 		"tailwind-merge": "^2.3.0",
 		"tailwindcss-animate": "^1.0.7",
 		"ts-pattern": "^5.1.1",
-		"zod": "^3.23.5"
+		"zod": "^3.23.6"
 	},
 	"devDependencies": {
-		"@eslint/config-inspector": "^0.4.7",
+		"@eslint/config-inspector": "^0.4.8",
 		"@eslint/eslintrc": "^3.0.2",
-		"@eslint/js": "^9.1.1",
+		"@eslint/js": "^9.2.0",
 		"@next/eslint-plugin-next": "^14.2.3",
-		"@stylistic/eslint-plugin-js": "^1.7.2",
+		"@stylistic/eslint-plugin-js": "^1.8.0",
 		"@types/eslint": "^8.56.10",
 		"@types/eslint__js": "^8.42.3",
-		"@types/node": "^20.12.7",
+		"@types/node": "^20.12.10",
 		"@types/react": "^18.3.1",
 		"@types/react-dom": "^18.3.0",
 		"@typescript-eslint/eslint-plugin": "^7.8.0",
@@ -87,7 +90,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-import": "^2.29.1",
 		"eslint-plugin-jsx-a11y": "^6.8.0",
-		"eslint-plugin-n": "^17.4.0",
+		"eslint-plugin-n": "17.4.0",
 		"eslint-plugin-prettier": "^5.1.3",
 		"eslint-plugin-react": "^7.34.1",
 		"eslint-plugin-react-hooks": "^4.6.2",
@@ -108,7 +111,7 @@
 		"typescript-eslint": "^7.8.0"
 	},
 	"engines": {
-		"node": ">=18.0.0"
+		"node": ">=20.0.0"
 	},
 	"ct3aMetadata": {
 		"initVersion": "7.32.0"

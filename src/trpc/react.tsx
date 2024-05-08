@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
-import { useState, type PropsWithChildren } from "react";
+import { useState, type FunctionComponent, type PropsWithChildren } from "react";
 import SuperJSON from "superjson";
 
 const createQueryClient = (): QueryClient => new QueryClient();
@@ -36,7 +36,7 @@ export type RouterInputs = inferRouterInputs<AppRouter>;
  */
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
 
-export const TRPCReactProvider = ({ children }: PropsWithChildren): JSX.Element => {
+export const TRPCReactProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
 	const queryClient = getQueryClient();
 
 	const [trpcClient] = useState(() =>

@@ -15,7 +15,7 @@ export const AuthButton: FunctionComponent<{ session: Session | null }> = ({ ses
 					className="hidden md:inline-flex"
 					size="lg"
 					variant="outline"
-					onClick={(): Promise<SignInResponse | undefined> => signIn("github")}
+					onClick={(): Promise<SignInResponse | undefined> => signIn("github", { callbackUrl: "/dashboard" })}
 				>
 					<LogIn className="size-[1.2rem]" />
 					<span>Sign in</span>
@@ -24,7 +24,7 @@ export const AuthButton: FunctionComponent<{ session: Session | null }> = ({ ses
 					className="md:hidden"
 					size="icon"
 					variant="outline"
-					onClick={(): Promise<SignInResponse | undefined> => signIn("github")}
+					onClick={(): Promise<SignInResponse | undefined> => signIn("github", { callbackUrl: "/dashboard" })}
 				>
 					<LogIn className="size-[1.2rem]" />
 					<span className="sr-only">"Sign in"</span>

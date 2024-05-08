@@ -127,7 +127,8 @@ export default tsEslint.config(
 			"n/no-missing-import": [
 				"error",
 				{
-					tryExtensions: [".js", ".jsx", ".ts", ".tsx"]
+					tryExtensions: [".js", ".jsx", ".ts", ".tsx"],
+					tsconfigPath: "./tsconfig.json"
 				}
 			]
 		},

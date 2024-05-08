@@ -10,3 +10,9 @@ declare module "next-auth" {
 		} & DefaultSession["user"];
 	}
 }
+
+declare module "@auth/core/jwt" {
+	interface JWT {
+		sub: string;
+	}
+}

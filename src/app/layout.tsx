@@ -1,6 +1,6 @@
 import { Header } from "@/components/layout/header/header";
 import { ThemeProvider } from "@/components/themeProvider";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/tailwindUtil";
 import "@/styles/globals.css";
 import { TRPCReactProvider } from "@/trpc/react";
 import { Inter, Merriweather, Oswald, PT_Mono } from "next/font/google";

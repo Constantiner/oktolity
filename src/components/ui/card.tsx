@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/tailwindUtil";
 import { forwardRef, type HTMLAttributes } from "react";
 import { H3, P } from "./typography";
 import { cva, type VariantProps } from "class-variance-authority";

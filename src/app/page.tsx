@@ -3,7 +3,7 @@ import { CreatePost } from "@/components/createPost";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { H1, H2, P } from "@/components/ui/typography";
-import { getServerAuthSession } from "@/server/auth";
+import { auth } from "@/server/auth";
 import { api } from "@/trpc/server";
 import Link from "next/link";
 import type { FunctionComponent } from "react";
@@ -11,7 +11,7 @@ import { P as Pattern, match } from "ts-pattern";
 
 export default async function Home(): Promise<JSX.Element> {
 	const hello = await api.post.hello({ text: "from tRPC" });
-	const session = await getServerAuthSession();
+	const session = await auth();
 
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-center">
@@ -80,7 +80,7 @@ export default async function Home(): Promise<JSX.Element> {
 }
 
 const CrudShowcase: FunctionComponent = async () => {
-	const session = await getServerAuthSession();
+	const session = await auth();
 	return match(session)
 		.with(Pattern.nullish, () => null)
 		.otherwise(session =>

@@ -7,13 +7,12 @@
  * need to use are documented accordingly near the end.
  */
 
-import { initTRPC, TRPCError } from "@trpc/server";
+import { auth } from "@/server/auth";
+import { database, type DatabaseClient } from "@/server/database";
+import { TRPCError, initTRPC } from "@trpc/server";
+import type { Session } from "next-auth";
 import superjson from "superjson";
 import { ZodError } from "zod";
-
-import { getServerAuthSession } from "@/server/auth";
-import { database, type DatabaseClient } from "@/server/database";
-import type { Session } from "next-auth";
 
 export type TRPCContext = {
 	db: DatabaseClient;
@@ -34,7 +33,7 @@ export type TRPCContext = {
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (options: { headers: Headers }): Promise<TRPCContext> => {
-	const session = await getServerAuthSession();
+	const session = await auth();
 
 	return {
 		db: database,
@@ -109,6 +108,24 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
 		ctx: {
 			// infers the `session` as non-nullable
 			session: { ...ctx.session, user: ctx.session.user }
+		}
+	});
+});
+
+export const protectedGithubApiProcedure = protectedProcedure.use(async ({ ctx, next }) => {
+	const account = await ctx.db.account.findFirst({
+		where: { userId: ctx.session.user.id }
+	});
+	if (!account?.access_token) {
+		throw new TRPCError({
+			code: "FORBIDDEN",
+			message: "No access token found"
+		});
+	}
+	return next({
+		ctx: {
+			// infers the `session` as non-nullable
+			session: { ...ctx.session, access_token: account.access_token }
 		}
 	});
 });

@@ -2,7 +2,7 @@ import { AuthButton } from "@/components/authButton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { getServerAuthSession } from "@/server/auth";
+import { auth } from "@/server/auth";
 import type { Session } from "next-auth";
 import type { FunctionComponent } from "react";
 import { P, match } from "ts-pattern";
@@ -28,7 +28,7 @@ const UserAvatar: FunctionComponent<{ user: Session["user"]; className?: string 
 );
 
 export async function Navigation(): Promise<JSX.Element> {
-	const session = await getServerAuthSession();
+	const session = await auth();
 
 	return (
 		<div className="flex flex-1 items-center justify-end gap-2 md:gap-3">
