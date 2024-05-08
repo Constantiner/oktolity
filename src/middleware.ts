@@ -1,4 +1,16 @@
-export { auth as middleware } from "./server/auth";
+import { auth } from "./server/auth";
+import { NextResponse, type NextRequest } from "next/server";
+
+export const middleware = auth((request: NextRequest) => {
+	const requestHeaders = new Headers(request.headers);
+	requestHeaders.set("x-next-pathname", request.nextUrl.pathname);
+
+	return NextResponse.next({
+		request: {
+			headers: requestHeaders
+		}
+	});
+});
 
 export const config = {
 	// https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher

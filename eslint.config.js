@@ -196,6 +196,12 @@ export default tsEslint.config(
 		}
 	},
 	{
+		files: reactFiles,
+		rules: {
+			"tailwindcss/no-custom-classname": ["warn", { whitelist: ["dashboard"] }]
+		}
+	},
+	{
 		files: ["eslint.config.js"],
 		rules: {
 			"@typescript-eslint/ban-ts-comment": "off"
