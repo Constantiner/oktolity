@@ -212,5 +212,11 @@ export default tsEslint.config(
 		rules: {
 			"unicorn/filename-case": ["off"]
 		}
+	},
+	{
+		files: ["src/**/*Provider.tsx"],
+		rules: {
+			"react-refresh/only-export-components": "off"
+		}
 	}
 );

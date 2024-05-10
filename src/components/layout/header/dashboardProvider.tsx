@@ -1,7 +1,15 @@
 "use client";
 
-/* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, type Dispatch, type PropsWithChildren, type SetStateAction } from "react";
+import { usePathname } from "next/navigation";
+import {
+	createContext,
+	useContext,
+	useLayoutEffect,
+	useState,
+	type Dispatch,
+	type PropsWithChildren,
+	type SetStateAction
+} from "react";
 
 export type DashboardContextProperties = {
 	isDashboard: boolean;
@@ -12,6 +20,11 @@ export const DashboardProviderContext = createContext<DashboardContextProperties
 
 export const DashboardProvider = ({ children }: PropsWithChildren): JSX.Element => {
 	const [isDashboard, setIsDashboard] = useState(false);
+	const pathname = usePathname();
+
+	useLayoutEffect(() => {
+		setIsDashboard(pathname.startsWith("/dashboard"));
+	}, [pathname]);
 
 	return (
 		<DashboardProviderContext.Provider value={{ isDashboard, setIsDashboard }}>

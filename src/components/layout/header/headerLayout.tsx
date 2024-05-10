@@ -15,9 +15,7 @@ export const HeaderLayout: FunctionComponent<PropsWithChildren> = ({ children })
 				}
 			)}
 		>
-			<div className="container flex h-16 items-stretch group-[.dashboard]/dashboard:mx-1 group-[.dashboard]/dashboard:max-w-full">
-				{children}
-			</div>
+			<div className="container flex h-16 items-stretch group-[.dashboard]/dashboard:max-w-full">{children}</div>
 		</header>
 	);
 };
