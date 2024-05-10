@@ -7,6 +7,7 @@ import "@/styles/globals.css";
 import { TRPCReactProvider } from "@/trpc/react";
 import { Fira_Sans, Inter, Merriweather, PT_Mono } from "next/font/google";
 import type { PropsWithChildren } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const headerFont = Fira_Sans({
 	subsets: ["cyrillic-ext", "latin-ext"],
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
 					serviceFont.variable
 				)}
 			>
+				<Analytics />
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<TRPCReactProvider>
 						<DashboardProvider>
