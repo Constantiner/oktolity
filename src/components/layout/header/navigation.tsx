@@ -2,6 +2,7 @@ import { AuthButton } from "@/components/authButton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import type { NullableStrict } from "@/lib/types/nullable";
 import { auth } from "@/server/auth";
 import type { Session } from "next-auth";
 import type { FunctionComponent } from "react";
@@ -10,7 +11,7 @@ import { DashboardItem } from "./navigation/dashboardItem";
 import { LogOutItem } from "./navigation/logOutItem";
 import { ModeToggle } from "./themeToggle";
 
-const getAbbreviation = (name?: string | null): string =>
+const getAbbreviation = (name?: NullableStrict<string>): string =>
 	match(name)
 		.with(P.nullish, () => "")
 		.otherwise(name =>

@@ -17,7 +17,8 @@ const h1Variants = cva("mb-0 scroll-m-20 not-italic tracking-tight first:mt-0", 
 		},
 		size: {
 			normal: "text-3xl md:text-4xl lg:text-5xl",
-			lg: "text-4xl md:text-6xl lg:text-7xl"
+			lg: "text-4xl md:text-6xl lg:text-7xl",
+			sm: "text-2xl md:text-3xl lg:text-4xl"
 		}
 	},
 	defaultVariants: {

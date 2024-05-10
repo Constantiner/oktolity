@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function Logo(): JSX.Element {
 	return (
-		<H1 family="mono" className="mr-2 select-none self-center" asChild>
+		<H1 family="mono" className="mr-2 select-none self-center" size="sm" asChild>
 			<Link href="/">oktolity</Link>
 		</H1>
 	);

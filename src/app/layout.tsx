@@ -4,12 +4,12 @@ import { ThemeProvider } from "@/components/themeProvider";
 import { cn } from "@/lib/tailwindUtil";
 import "@/styles/globals.css";
 import { TRPCReactProvider } from "@/trpc/react";
-import { Inter, Merriweather, Oswald, PT_Mono } from "next/font/google";
+import { Fira_Sans, Inter, Merriweather, PT_Mono } from "next/font/google";
 import type { PropsWithChildren } from "react";
 
-const headerFont = Oswald({
+const headerFont = Fira_Sans({
 	subsets: ["cyrillic-ext", "latin-ext"],
-	weight: "variable",
+	weight: ["300", "400", "700", "900"],
 	style: "normal",
 	variable: "--font-oktolity-header"
 });
