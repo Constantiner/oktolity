@@ -17,7 +17,11 @@ export default async function Home(): Promise<JSX.Element> {
 		<main className="flex min-h-screen flex-col items-center justify-center">
 			<div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
 				<H1>
-					Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
+					Create{" "}
+					<span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] bg-clip-text text-transparent">
+						T3
+					</span>{" "}
+					App
 				</H1>
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
 					<Card className="flex flex-col">
