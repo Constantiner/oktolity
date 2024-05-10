@@ -1,3 +1,4 @@
+import { Footer } from "@/components/layout/footer/footer";
 import { DashboardProvider } from "@/components/layout/header/dashboardProvider";
 import { Header } from "@/components/layout/header/header";
 import { ThemeProvider } from "@/components/themeProvider";
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
 							<div className="relative flex min-h-screen flex-col">
 								<Header />
 								<>{children}</>
+								<Footer />
 							</div>
 						</DashboardProvider>
 					</TRPCReactProvider>

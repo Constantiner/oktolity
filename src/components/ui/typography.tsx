@@ -18,7 +18,8 @@ const h1Variants = cva("mb-0 scroll-m-20 not-italic tracking-tight first:mt-0", 
 		size: {
 			normal: "text-3xl md:text-4xl lg:text-5xl",
 			lg: "text-4xl md:text-6xl lg:text-7xl",
-			sm: "text-2xl md:text-3xl lg:text-4xl"
+			sm: "text-2xl md:text-3xl lg:text-4xl",
+			xs: "text-xl md:text-2xl lg:text-3xl"
 		}
 	},
 	defaultVariants: {
@@ -79,7 +80,8 @@ const h3Variants = cva("mb-0 scroll-m-20 font-header not-italic tracking-tight t
 		},
 		size: {
 			normal: "text-xl md:text-2xl lg:text-3xl",
-			lg: "text-6xl"
+			lg: "text-6xl",
+			sm: "text-lg md:text-xl lg:text-2xl"
 		}
 	},
 	defaultVariants: {
@@ -137,6 +139,10 @@ export const pVariantsConfig = {
 			default: "[&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6",
 			none: "mt-0",
 			tight: "[&:not(:first-child)]:mt-2 md:[&:not(:first-child)]:mt-3"
+		},
+		decoration: {
+			none: "",
+			link: "hover:underline"
 		}
 	}
 } as const;
@@ -148,7 +154,8 @@ const pVariants = cva("break-words leading-7", {
 		size: "default",
 		family: "body",
 		weight: "default",
-		spacing: "default"
+		spacing: "default",
+		decoration: "none"
 	}
 });
 
@@ -157,11 +164,11 @@ export interface PProperties extends HTMLAttributes<HTMLParagraphElement>, Varia
 }
 
 export const P = forwardRef<HTMLParagraphElement, PProperties>(
-	({ className, asChild = false, variant, size, family, weight, spacing, ...properties }, reference) => {
+	({ className, asChild = false, variant, size, family, weight, spacing, decoration, ...properties }, reference) => {
 		const Comp = asChild ? Slot : "p";
 		return (
 			<Comp
-				className={cn(pVariants({ variant, size, family, weight, spacing, className }))}
+				className={cn(pVariants({ variant, size, family, weight, spacing, decoration, className }))}
 				ref={reference}
 				{...properties}
 			/>

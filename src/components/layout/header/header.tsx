@@ -1,11 +1,11 @@
 import { HeaderLayout } from "./headerLayout";
-import { Logo } from "./logo";
+import { HeaderLogo } from "./headerLogo";
 import { Navigation } from "./navigation";
 
 export function Header(): JSX.Element {
 	return (
 		<HeaderLayout>
-			<Logo />
+			<HeaderLogo />
 			<Navigation />
 		</HeaderLayout>
 	);
