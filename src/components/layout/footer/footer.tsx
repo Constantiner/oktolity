@@ -52,6 +52,16 @@ export const Footer: FunctionComponent = () => {
 							Source Code
 						</a>
 					</P>
+
+					<P spacing="none" size="sm" decoration="link" asChild>
+						<a
+							rel="noreferrer noopener"
+							href="https://github.com/Constantiner/oktolity/issues"
+							target="_blank"
+						>
+							Report a Bug
+						</a>
+					</P>
 				</div>
 			</section>
 
