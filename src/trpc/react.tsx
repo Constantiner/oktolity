@@ -6,7 +6,8 @@ import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
 import { useState, type FunctionComponent, type PropsWithChildren } from "react";
-import SuperJSON from "superjson";
+import superjson from "superjson";
+import { getBaseUrl } from "./util/baseUrl";
 
 const createQueryClient = (): QueryClient => new QueryClient();
 
@@ -48,7 +49,7 @@ export const TRPCReactProvider: FunctionComponent<PropsWithChildren> = ({ childr
 						(op.direction === "down" && op.result instanceof Error)
 				}),
 				unstable_httpBatchStreamLink({
-					transformer: SuperJSON,
+					transformer: superjson,
 					url: getBaseUrl() + "/api/trpc",
 					headers: () => {
 						const headers = new Headers();
@@ -68,9 +69,3 @@ export const TRPCReactProvider: FunctionComponent<PropsWithChildren> = ({ childr
 		</QueryClientProvider>
 	);
 };
-
-function getBaseUrl(): string {
-	if (typeof window !== "undefined") return window.location.origin;
-	if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-	return `http://localhost:${process.env.PORT ?? 3000}`;
-}

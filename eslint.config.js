@@ -3,7 +3,6 @@ import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import nextPlugin from "@next/eslint-plugin-next";
 import stylisticJs from "@stylistic/eslint-plugin-js";
-import tsParser from "@typescript-eslint/parser";
 import pluginImport from "eslint-plugin-import";
 import reactAccessibility from "eslint-plugin-jsx-a11y";
 import nodePlugin from "eslint-plugin-n";
@@ -16,7 +15,6 @@ import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import globals from "globals";
 import tsEslint from "typescript-eslint";
 
-const ecmaVersion = 2022;
 const reactFiles = ["**/*.{jsx,tsx}", "src/**"];
 
 const compat = new FlatCompat();
@@ -83,17 +81,46 @@ export default tsEslint.config(
 			import: pluginImport
 		},
 		languageOptions: {
-			sourceType: "module",
-			ecmaVersion,
-			parser: tsParser,
+			// parser: tsParser,
 			parserOptions: {
-				ecmaVersion
+				// Eslint doesn't supply ecmaVersion in `parser.js` `context.parserOptions`
+				// This is required to avoid ecmaVersion < 2015 error or 'import' / 'export' error
+				ecmaVersion: "latest",
+				sourceType: "module"
 			}
 		},
 		settings: {
+			// This will do the trick
 			"import/parsers": {
-				"@typescript-eslint/parser": []
+				espree: [".js", ".cjs", ".mjs", ".jsx"]
+			},
+			"import/resolver": {
+				typescript: true,
+				node: true
 			}
+		},
+		rules: {
+			...pluginImport.configs.recommended.rules,
+			"import/no-restricted-paths": [
+				"error",
+				{
+					zones: [
+						{
+							target: "./src/**/*",
+							from: "./src/app/**/*"
+						},
+						{
+							target: "./src/server/**/*",
+							from: "./src/model/**/*"
+						},
+						{
+							target: "./src/lib/**/*",
+							from: "./src/components/**/*"
+						}
+					]
+				}
+			],
+			"import/no-cycle": "error"
 		}
 	},
 	{

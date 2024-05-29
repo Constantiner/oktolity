@@ -5,9 +5,9 @@ import { ThemeProvider } from "@/components/themeProvider";
 import { cn } from "@/lib/tailwindUtil";
 import "@/styles/globals.css";
 import { TRPCReactProvider } from "@/trpc/react";
+import { Analytics } from "@vercel/analytics/react";
 import { Fira_Sans, Inter, Merriweather, PT_Mono } from "next/font/google";
 import type { PropsWithChildren } from "react";
-import { Analytics } from "@vercel/analytics/react";
 
 const headerFont = Fira_Sans({
 	subsets: ["cyrillic-ext", "latin-ext"],

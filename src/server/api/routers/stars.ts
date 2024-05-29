@@ -3,7 +3,7 @@ import { createTRPCRouter, protectedGithubApiProcedure } from "@/server/api/trpc
 import { parseISO } from "date-fns";
 import { Octokit } from "octokit";
 
-type StarredRepo = {
+export type StarredRepo = {
 	id: number;
 	name: string;
 	fullName: string;
