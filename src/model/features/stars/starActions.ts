@@ -1,9 +1,8 @@
-import type { AppCreateAsyncThunkConfig } from "@/model/store";
+import { createAppAsyncThunk } from "@/model/hooks";
 import type { StarredRepo } from "@/server/api/routers/stars";
 import { isTRPCClientError } from "@/trpc/client";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getStars = createAsyncThunk<Readonly<Readonly<StarredRepo>[]>, void, AppCreateAsyncThunkConfig>(
+export const getStars = createAppAsyncThunk<Readonly<Readonly<StarredRepo>[]>, void>(
 	"stars/getStars",
 	async (_, { extra }) => {
 		try {
