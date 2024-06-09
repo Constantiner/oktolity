@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import {
 	createContext,
-	useContext,
 	useLayoutEffect,
 	useState,
 	type Dispatch,
@@ -31,8 +30,4 @@ export const DashboardProvider = ({ children }: PropsWithChildren): JSX.Element 
 			{children}
 		</DashboardProviderContext.Provider>
 	);
-};
-
-export const useDashboardContext = (): DashboardContextProperties => {
-	return useContext(DashboardProviderContext);
 };

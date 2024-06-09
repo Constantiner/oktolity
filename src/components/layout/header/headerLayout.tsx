@@ -1,11 +1,11 @@
 "use client";
 
-import type { FunctionComponent, PropsWithChildren } from "react";
-import { useDashboardContext } from "./dashboardProvider";
 import { cn } from "@/lib/tailwindUtil";
+import { use, type FunctionComponent, type PropsWithChildren } from "react";
+import { DashboardProviderContext } from "./dashboardProvider";
 
 export const HeaderLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
-	const { isDashboard } = useDashboardContext();
+	const { isDashboard } = use(DashboardProviderContext);
 	return (
 		<header
 			className={cn(
