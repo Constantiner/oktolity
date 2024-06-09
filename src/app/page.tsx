@@ -15,7 +15,7 @@ export default async function Home(): Promise<JSX.Element> {
 
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-center">
-			<div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
+			<div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
 				<H1>
 					Create{" "}
 					<span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] bg-clip-text text-transparent">
