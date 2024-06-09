@@ -5,7 +5,9 @@ import {
 	createContext,
 	useLayoutEffect,
 	useState,
+	type Context,
 	type Dispatch,
+	type JSX,
 	type PropsWithChildren,
 	type SetStateAction
 } from "react";
@@ -15,7 +17,9 @@ export type DashboardContextProperties = {
 	setIsDashboard?: Dispatch<SetStateAction<boolean>>;
 };
 
-export const DashboardProviderContext = createContext<DashboardContextProperties>({ isDashboard: false });
+export const DashboardProviderContext: Context<DashboardContextProperties> = createContext<DashboardContextProperties>({
+	isDashboard: false
+});
 
 export const DashboardProvider = ({ children }: PropsWithChildren): JSX.Element => {
 	const [isDashboard, setIsDashboard] = useState(false);
@@ -25,9 +29,5 @@ export const DashboardProvider = ({ children }: PropsWithChildren): JSX.Element 
 		setIsDashboard(pathname.startsWith("/dashboard"));
 	}, [pathname]);
 
-	return (
-		<DashboardProviderContext.Provider value={{ isDashboard, setIsDashboard }}>
-			{children}
-		</DashboardProviderContext.Provider>
-	);
+	return <DashboardProviderContext value={{ isDashboard, setIsDashboard }}>{children}</DashboardProviderContext>;
 };

@@ -4,6 +4,8 @@ import { P, match } from "ts-pattern";
 import { NavigationContent } from "./navigation/navigationContent";
 import { ModeToggle } from "./themeToggle";
 
+import type { JSX } from "react";
+
 export async function Navigation(): Promise<JSX.Element> {
 	const session = await auth();
 

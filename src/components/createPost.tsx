@@ -2,7 +2,7 @@
 
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, type JSX } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 

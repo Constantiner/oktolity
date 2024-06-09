@@ -3,7 +3,7 @@
 import { cn } from "@/lib/tailwindUtil";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronRight, Circle } from "lucide-react";
-import { type ComponentPropsWithRef, type FunctionComponent, type HTMLAttributes } from "react";
+import { type ComponentPropsWithRef, type FunctionComponent, type HTMLAttributes, type JSX } from "react";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 

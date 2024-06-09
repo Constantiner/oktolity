@@ -6,7 +6,7 @@ import { H1, H2, P } from "@/components/ui/typography";
 import { auth } from "@/server/auth";
 import { api } from "@/trpc/server";
 import Link from "next/link";
-import type { FunctionComponent } from "react";
+import type { FunctionComponent, JSX } from "react";
 import { P as Pattern, match } from "ts-pattern";
 
 export default async function Home(): Promise<JSX.Element> {

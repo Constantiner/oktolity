@@ -4,7 +4,7 @@ import { cn } from "@/lib/tailwindUtil";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 import { X } from "lucide-react";
-import { type ComponentPropsWithRef, type FunctionComponent, type HTMLAttributes } from "react";
+import { type ComponentPropsWithRef, type FunctionComponent, type HTMLAttributes, type JSX } from "react";
 
 const Sheet = SheetPrimitive.Root;
 

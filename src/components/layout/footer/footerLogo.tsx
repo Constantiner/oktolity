@@ -2,6 +2,8 @@ import { H1 } from "@/components/ui/typography";
 import Link from "next/link";
 import { LogoSvg } from "../logoSvg";
 
+import type { JSX } from "react";
+
 export function FooterLogo(): JSX.Element {
 	return (
 		<Link href="/" className="flex items-center">

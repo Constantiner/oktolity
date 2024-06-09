@@ -1,5 +1,4 @@
 "use client";
-
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -9,6 +8,8 @@ import {
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "../../ui/button";
+
+import type { JSX } from "react";
 
 export function ModeToggle(): JSX.Element {
 	const { setTheme } = useTheme();
