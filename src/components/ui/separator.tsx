@@ -2,12 +2,15 @@
 
 import { cn } from "@/lib/tailwindUtil";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from "react";
+import { type ComponentPropsWithRef, type FunctionComponent } from "react";
 
-const Separator = forwardRef<
-	ElementRef<typeof SeparatorPrimitive.Root>,
-	ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>
->(({ className, orientation = "horizontal", decorative = true, ...properties }, reference) => (
+const Separator: FunctionComponent<ComponentPropsWithRef<typeof SeparatorPrimitive.Root>> = ({
+	ref: reference,
+	className,
+	orientation = "horizontal",
+	decorative = true,
+	...properties
+}) => (
 	<SeparatorPrimitive.Root
 		ref={reference}
 		decorative={decorative}
@@ -19,7 +22,6 @@ const Separator = forwardRef<
 		)}
 		{...properties}
 	/>
-));
-Separator.displayName = SeparatorPrimitive.Root.displayName;
+);
 
 export { Separator };

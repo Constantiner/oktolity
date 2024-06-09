@@ -1,7 +1,9 @@
 import { cn } from "@/lib/tailwindUtil";
-import { forwardRef, type HTMLAttributes } from "react";
-import { H3, P } from "./typography";
+import type { WithAsChild } from "@/lib/types/components/asChild";
+import type { WithReferenceAttributes, WithReferenceProperties } from "@/lib/types/react/withReference";
 import { cva, type VariantProps } from "class-variance-authority";
+import { type FunctionComponent, type HTMLAttributes } from "react";
+import { H3, P } from "./typography";
 
 const cardVariants = cva("rounded-lg border bg-card text-card-foreground shadow-sm", {
 	variants: {
@@ -17,24 +19,22 @@ const cardVariants = cva("rounded-lg border bg-card text-card-foreground shadow-
 
 export type CardProperties = HTMLAttributes<HTMLDivElement> & VariantProps<typeof cardVariants>;
 
-const Card = forwardRef<HTMLDivElement, CardProperties>(({ className, variant, ...properties }, reference) => (
-	<div ref={reference} className={cn(cardVariants({ variant, className }))} {...properties} />
-));
-Card.displayName = "Card";
+const Card: FunctionComponent<WithReferenceAttributes<HTMLDivElement> & VariantProps<typeof cardVariants>> = ({
+	ref: reference,
+	className,
+	variant,
+	...properties
+}) => <div ref={reference} className={cn(cardVariants({ variant, className }))} {...properties} />;
 
-const CardHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-	({ className, ...properties }, reference) => (
-		<div ref={reference} className={cn("flex flex-col space-y-1.5 p-6", className)} {...properties} />
-	)
-);
-CardHeader.displayName = "CardHeader";
+const CardHeader: FunctionComponent<WithReferenceProperties<HTMLDivElement, HTMLAttributes<HTMLDivElement>>> = ({
+	ref: reference,
+	className,
+	...properties
+}) => <div ref={reference} className={cn("flex flex-col space-y-1.5 p-6", className)} {...properties} />;
 
-const CardTitle = forwardRef<
-	HTMLParagraphElement,
-	HTMLAttributes<HTMLHeadingElement> & {
-		asChild?: boolean;
-	}
->(({ className, asChild, ...properties }, reference) => {
+const CardTitle: FunctionComponent<
+	WithReferenceProperties<HTMLParagraphElement, WithAsChild<HTMLAttributes<HTMLHeadingElement>>>
+> = ({ ref: reference, className, asChild, ...properties }) => {
 	if (!asChild) {
 		return (
 			<H3
@@ -55,28 +55,24 @@ const CardTitle = forwardRef<
 			{children}
 		</H3>
 	);
-});
-CardTitle.displayName = "CardTitle";
+};
 
-const CardDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
-	({ className, ...properties }, reference) => (
-		<P ref={reference} className={cn("text-sm text-muted-foreground", className)} {...properties} />
-	)
-);
-CardDescription.displayName = "CardDescription";
+const CardDescription: FunctionComponent<WithReferenceAttributes<HTMLParagraphElement>> = ({
+	ref: reference,
+	className,
+	...properties
+}) => <P ref={reference} className={cn("text-sm text-muted-foreground", className)} {...properties} />;
 
-const CardContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-	({ className, ...properties }, reference) => (
-		<div ref={reference} className={cn("p-6 pt-0", className)} {...properties} />
-	)
-);
-CardContent.displayName = "CardContent";
+const CardContent: FunctionComponent<WithReferenceAttributes<HTMLDivElement>> = ({
+	ref: reference,
+	className,
+	...properties
+}) => <div ref={reference} className={cn("p-6 pt-0", className)} {...properties} />;
 
-const CardFooter = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-	({ className, ...properties }, reference) => (
-		<div ref={reference} className={cn("flex items-center p-6 pt-0", className)} {...properties} />
-	)
-);
-CardFooter.displayName = "CardFooter";
+const CardFooter: FunctionComponent<WithReferenceAttributes<HTMLDivElement>> = ({
+	ref: reference,
+	className,
+	...properties
+}) => <div ref={reference} className={cn("flex items-center p-6 pt-0", className)} {...properties} />;
 
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };

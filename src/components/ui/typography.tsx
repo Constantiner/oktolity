@@ -1,7 +1,8 @@
 import { cn } from "@/lib/tailwindUtil";
+import type { WithReferenceProperties } from "@/lib/types/react/withReference";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { forwardRef, type FunctionComponent, type HTMLAttributes, type PropsWithChildren } from "react";
+import { type FunctionComponent, type HTMLAttributes, type PropsWithChildren } from "react";
 
 const h1Variants = cva("mb-0 scroll-m-20 not-italic tracking-tight first:mt-0", {
 	variants: {
@@ -33,15 +34,18 @@ export interface H1Properties extends HTMLAttributes<HTMLHeadingElement>, Varian
 	asChild?: boolean;
 }
 
-export const H1 = forwardRef<HTMLHeadingElement, H1Properties>(
-	({ className, asChild = false, variant, size, family, ...properties }, reference) => {
-		const Comp = asChild ? Slot : "h1";
-		return (
-			<Comp className={cn(h1Variants({ variant, size, family, className }))} ref={reference} {...properties} />
-		);
-	}
-);
-H1.displayName = "H1";
+export const H1: FunctionComponent<WithReferenceProperties<HTMLHeadingElement, H1Properties>> = ({
+	ref: reference,
+	className,
+	asChild = false,
+	variant,
+	size,
+	family,
+	...properties
+}) => {
+	const Comp = asChild ? Slot : "h1";
+	return <Comp className={cn(h1Variants({ variant, size, family, className }))} ref={reference} {...properties} />;
+};
 
 const h2Variants = cva("mb-0 scroll-m-20 font-header not-italic tracking-tight transition-colors first:mt-0", {
 	variants: {
@@ -64,13 +68,17 @@ export interface H2Properties extends HTMLAttributes<HTMLHeadingElement>, Varian
 	asChild?: boolean;
 }
 
-export const H2 = forwardRef<HTMLHeadingElement, H2Properties>(
-	({ className, asChild = false, variant, size, ...properties }, reference) => {
-		const Comp = asChild ? Slot : "h2";
-		return <Comp className={cn(h2Variants({ variant, size, className }))} ref={reference} {...properties} />;
-	}
-);
-H2.displayName = "H2";
+export const H2: FunctionComponent<WithReferenceProperties<HTMLHeadingElement, H2Properties>> = ({
+	ref: reference,
+	className,
+	asChild = false,
+	variant,
+	size,
+	...properties
+}) => {
+	const Comp = asChild ? Slot : "h2";
+	return <Comp className={cn(h2Variants({ variant, size, className }))} ref={reference} {...properties} />;
+};
 
 const h3Variants = cva("mb-0 scroll-m-20 font-header not-italic tracking-tight transition-colors first:mt-0", {
 	variants: {
@@ -94,13 +102,17 @@ export interface H3Properties extends HTMLAttributes<HTMLHeadingElement>, Varian
 	asChild?: boolean;
 }
 
-export const H3 = forwardRef<HTMLHeadingElement, H3Properties>(
-	({ className, asChild = false, variant, size, ...properties }, reference) => {
-		const Comp = asChild ? Slot : "h3";
-		return <Comp className={cn(h3Variants({ variant, size, className }))} ref={reference} {...properties} />;
-	}
-);
-H3.displayName = "H3";
+export const H3: FunctionComponent<WithReferenceProperties<HTMLHeadingElement, H3Properties>> = ({
+	ref: reference,
+	className,
+	asChild = false,
+	variant,
+	size,
+	...properties
+}) => {
+	const Comp = asChild ? Slot : "h3";
+	return <Comp className={cn(h3Variants({ variant, size, className }))} ref={reference} {...properties} />;
+};
 
 export const H4: FunctionComponent<PropsWithChildren> = ({ children }) => {
 	return <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">{children}</h4>;
@@ -163,19 +175,27 @@ export interface PProperties extends HTMLAttributes<HTMLParagraphElement>, Varia
 	asChild?: boolean;
 }
 
-export const P = forwardRef<HTMLParagraphElement, PProperties>(
-	({ className, asChild = false, variant, size, family, weight, spacing, decoration, ...properties }, reference) => {
-		const Comp = asChild ? Slot : "p";
-		return (
-			<Comp
-				className={cn(pVariants({ variant, size, family, weight, spacing, decoration, className }))}
-				ref={reference}
-				{...properties}
-			/>
-		);
-	}
-);
-P.displayName = "P";
+export const P: FunctionComponent<WithReferenceProperties<HTMLParagraphElement, PProperties>> = ({
+	ref: reference,
+	className,
+	asChild = false,
+	variant,
+	size,
+	family,
+	weight,
+	spacing,
+	decoration,
+	...properties
+}) => {
+	const Comp = asChild ? Slot : "p";
+	return (
+		<Comp
+			className={cn(pVariants({ variant, size, family, weight, spacing, decoration, className }))}
+			ref={reference}
+			{...properties}
+		/>
+	);
+};
 
 const blockquoteVariants = cva("pl-4 italic lg:pl-6 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6", {
 	variants: {
@@ -204,30 +224,35 @@ export interface BlockquoteProperties
 	asChild?: boolean;
 }
 
-export const Blockquote = forwardRef<HTMLQuoteElement, BlockquoteProperties>(
-	({ className, asChild = false, variant, size, children, ...properties }, reference) => {
-		const Comp = asChild ? Slot : "blockquote";
-		return variant === "quoteMark" ? (
-			<Comp className={cn(blockquoteVariants({ variant, size, className }))} ref={reference} {...properties}>
-				<svg
-					className="mb-2 block size-6 text-muted-foreground md:mb-3 md:size-7 lg:mb-4 lg:size-8"
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="currentColor"
-					viewBox="0 0 18 14"
-				>
-					<path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z" />
-				</svg>
-				{children}
-			</Comp>
-		) : (
-			<Comp className={cn(blockquoteVariants({ variant, className }))} ref={reference} {...properties}>
-				{children}
-			</Comp>
-		);
-	}
-);
-Blockquote.displayName = "Blockquote";
+export const Blockquote: FunctionComponent<WithReferenceProperties<HTMLQuoteElement, BlockquoteProperties>> = ({
+	ref: reference,
+	className,
+	asChild = false,
+	variant,
+	size,
+	children,
+	...properties
+}) => {
+	const Comp = asChild ? Slot : "blockquote";
+	return variant === "quoteMark" ? (
+		<Comp className={cn(blockquoteVariants({ variant, size, className }))} ref={reference} {...properties}>
+			<svg
+				className="mb-2 block size-6 text-muted-foreground md:mb-3 md:size-7 lg:mb-4 lg:size-8"
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				fill="currentColor"
+				viewBox="0 0 18 14"
+			>
+				<path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z" />
+			</svg>
+			{children}
+		</Comp>
+	) : (
+		<Comp className={cn(blockquoteVariants({ variant, className }))} ref={reference} {...properties}>
+			{children}
+		</Comp>
+	);
+};
 
 export const Code: FunctionComponent<PropsWithChildren> = ({ children }) => {
 	return <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-normal">{children}</code>;

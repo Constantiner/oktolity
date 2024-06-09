@@ -1,9 +1,15 @@
 import { cn } from "@/lib/tailwindUtil";
-import { forwardRef } from "react";
+import type { WithReferenceProperties } from "@/lib/types/react/withReference";
+import type { FunctionComponent, InputHTMLAttributes } from "react";
 
-export interface InputProperties extends React.InputHTMLAttributes<HTMLInputElement> {}
+export type InputProperties = InputHTMLAttributes<HTMLInputElement>;
 
-const Input = forwardRef<HTMLInputElement, InputProperties>(({ className, type, ...properties }, reference) => {
+const Input: FunctionComponent<WithReferenceProperties<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>> = ({
+	ref: reference,
+	className,
+	type,
+	...properties
+}) => {
 	return (
 		<input
 			type={type}
@@ -15,7 +21,6 @@ const Input = forwardRef<HTMLInputElement, InputProperties>(({ className, type, 
 			{...properties}
 		/>
 	);
-});
-Input.displayName = "Input";
+};
 
 export { Input };

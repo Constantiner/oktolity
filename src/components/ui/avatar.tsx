@@ -2,38 +2,38 @@
 
 import { cn } from "@/lib/tailwindUtil";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
-import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from "react";
+import { type ComponentPropsWithRef, type FunctionComponent } from "react";
 
-const Avatar = forwardRef<
-	ElementRef<typeof AvatarPrimitive.Root>,
-	ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
->(({ className, ...properties }, reference) => (
+const Avatar: FunctionComponent<ComponentPropsWithRef<typeof AvatarPrimitive.Root>> = ({
+	ref: reference,
+	className,
+	...properties
+}) => (
 	<AvatarPrimitive.Root
 		ref={reference}
 		className={cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)}
 		{...properties}
 	/>
-));
-Avatar.displayName = AvatarPrimitive.Root.displayName;
+);
 
-const AvatarImage = forwardRef<
-	ElementRef<typeof AvatarPrimitive.Image>,
-	ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
->(({ className, ...properties }, reference) => (
+const AvatarImage: FunctionComponent<ComponentPropsWithRef<typeof AvatarPrimitive.Image>> = ({
+	ref: reference,
+	className,
+	...properties
+}) => (
 	<AvatarPrimitive.Image ref={reference} className={cn("aspect-square h-full w-full", className)} {...properties} />
-));
-AvatarImage.displayName = AvatarPrimitive.Image.displayName;
+);
 
-const AvatarFallback = forwardRef<
-	ElementRef<typeof AvatarPrimitive.Fallback>,
-	ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, ...properties }, reference) => (
+const AvatarFallback: FunctionComponent<ComponentPropsWithRef<typeof AvatarPrimitive.Fallback>> = ({
+	ref: reference,
+	className,
+	...properties
+}) => (
 	<AvatarPrimitive.Fallback
 		ref={reference}
 		className={cn("flex h-full w-full items-center justify-center rounded-full bg-muted", className)}
 		{...properties}
 	/>
-));
-AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
+);
 
 export { Avatar, AvatarFallback, AvatarImage };

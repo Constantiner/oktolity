@@ -3,13 +3,7 @@
 import { cn } from "@/lib/tailwindUtil";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import {
-	forwardRef,
-	type ComponentPropsWithoutRef,
-	type ElementRef,
-	type FunctionComponent,
-	type HTMLAttributes
-} from "react";
+import { type ComponentPropsWithRef, type FunctionComponent, type HTMLAttributes } from "react";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -19,10 +13,11 @@ const DialogPortal = DialogPrimitive.Portal;
 
 const DialogClose = DialogPrimitive.Close;
 
-const DialogOverlay = forwardRef<
-	ElementRef<typeof DialogPrimitive.Overlay>,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...properties }, reference) => (
+const DialogOverlay: FunctionComponent<ComponentPropsWithRef<typeof DialogPrimitive.Overlay>> = ({
+	ref: reference,
+	className,
+	...properties
+}) => (
 	<DialogPrimitive.Overlay
 		ref={reference}
 		className={cn(
@@ -31,13 +26,14 @@ const DialogOverlay = forwardRef<
 		)}
 		{...properties}
 	/>
-));
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
+);
 
-const DialogContent = forwardRef<
-	ElementRef<typeof DialogPrimitive.Content>,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...properties }, reference) => (
+const DialogContent: FunctionComponent<ComponentPropsWithRef<typeof DialogPrimitive.Content>> = ({
+	ref: reference,
+	className,
+	children,
+	...properties
+}) => (
 	<DialogPortal>
 		<DialogOverlay />
 		<DialogPrimitive.Content
@@ -55,42 +51,39 @@ const DialogContent = forwardRef<
 			</DialogPrimitive.Close>
 		</DialogPrimitive.Content>
 	</DialogPortal>
-));
-DialogContent.displayName = DialogPrimitive.Content.displayName;
+);
 
 const DialogHeader: FunctionComponent<HTMLAttributes<HTMLDivElement>> = ({ className, ...properties }) => (
 	<div className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)} {...properties} />
 );
-DialogHeader.displayName = "DialogHeader";
 
 const DialogFooter: FunctionComponent<HTMLAttributes<HTMLDivElement>> = ({ className, ...properties }) => (
 	<div className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)} {...properties} />
 );
-DialogFooter.displayName = "DialogFooter";
 
-const DialogTitle = forwardRef<
-	ElementRef<typeof DialogPrimitive.Title>,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className, ...properties }, reference) => (
+const DialogTitle: FunctionComponent<ComponentPropsWithRef<typeof DialogPrimitive.Title>> = ({
+	ref: reference,
+	className,
+	...properties
+}) => (
 	<DialogPrimitive.Title
 		ref={reference}
 		className={cn("text-lg font-semibold leading-none tracking-tight", className)}
 		{...properties}
 	/>
-));
-DialogTitle.displayName = DialogPrimitive.Title.displayName;
+);
 
-const DialogDescription = forwardRef<
-	ElementRef<typeof DialogPrimitive.Description>,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className, ...properties }, reference) => (
+const DialogDescription: FunctionComponent<ComponentPropsWithRef<typeof DialogPrimitive.Description>> = ({
+	ref: reference,
+	className,
+	...properties
+}) => (
 	<DialogPrimitive.Description
 		ref={reference}
 		className={cn("text-sm text-muted-foreground", className)}
 		{...properties}
 	/>
-));
-DialogDescription.displayName = DialogPrimitive.Description.displayName;
+);
 
 export {
 	Dialog,

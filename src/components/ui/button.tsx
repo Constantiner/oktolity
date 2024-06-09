@@ -1,7 +1,9 @@
 import { cn } from "@/lib/tailwindUtil";
+import type { WithAsChild } from "@/lib/types/components/asChild";
+import type { WithReferenceProperties } from "@/lib/types/react/withReference";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { forwardRef } from "react";
+import type { ButtonHTMLAttributes, FunctionComponent } from "react";
 
 const buttonVariants = cva(
 	"inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -35,20 +37,21 @@ const buttonVariants = cva(
 	}
 );
 
-export interface ButtonProperties
-	extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-		VariantProps<typeof buttonVariants> {
-	asChild?: boolean;
-}
+export type ButtonProperties = WithAsChild<
+	ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>
+>;
 
-const Button = forwardRef<HTMLButtonElement, ButtonProperties>(
-	({ className, variant, size, align, asChild = false, ...properties }, reference) => {
-		const Comp = asChild ? Slot : "button";
-		return (
-			<Comp className={cn(buttonVariants({ variant, size, align, className }))} ref={reference} {...properties} />
-		);
-	}
-);
-Button.displayName = "Button";
+const Button: FunctionComponent<WithReferenceProperties<HTMLButtonElement, ButtonProperties>> = ({
+	ref: reference,
+	className,
+	variant,
+	size,
+	align,
+	asChild = false,
+	...properties
+}) => {
+	const Comp = asChild ? Slot : "button";
+	return <Comp className={cn(buttonVariants({ variant, size, align, className }))} ref={reference} {...properties} />;
+};
 
 export { Button, buttonVariants };
