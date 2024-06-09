@@ -7,6 +7,11 @@
 await import("./src/environment.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+	experimental: {
+		reactCompiler: true,
+		ppr: true
+	}
+};
 
 export default config;
