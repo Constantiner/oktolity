@@ -9,6 +9,7 @@ import nodePlugin from "eslint-plugin-n";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import hooksPlugin from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
+import reactCompiler from "eslint-plugin-react-compiler";
 import reactRecommended from "eslint-plugin-react/configs/recommended.js";
 import pluginSecurity from "eslint-plugin-security";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
@@ -220,6 +221,13 @@ export default tsEslint.config(
 		plugins: { "react-refresh": reactRefresh },
 		rules: {
 			"react-refresh/only-export-components": ["warn", { allowConstantExport: true }]
+		}
+	},
+	{
+		files: reactFiles,
+		plugins: { "react-compiler": reactCompiler },
+		rules: {
+			"react-compiler/react-compiler": "error"
 		}
 	},
 	{
