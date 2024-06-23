@@ -1,0 +1,23 @@
+model GitgubRepository {
+    id                    String                       @id @default(cuid())
+    repoId                Int                          @unique
+    tags                  Tag[]
+    usersAddedToFavorites User[]
+}
+
+model Tag {
+    id           String        @id @default(cuid())
+    name         String
+    slug         String
+    description  String?
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+    createdBy    User          @relation(fields: [createdById], references: [id])
+    createdById  String
+	taggedRepositories GitgubRepository[]
+
+    @@unique([name, createdById])
+    @@unique([slug, createdById])
+    @@index([name])
+    @@index([slug])
+}

@@ -31,9 +31,14 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt @default(now())
+
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+    tags          Tag[]
+	favoriteRepos GitgubRepository[]
 }
 
 model VerificationToken {
