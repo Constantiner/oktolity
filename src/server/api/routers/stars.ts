@@ -3,8 +3,10 @@ import { createTRPCRouter, protectedGithubApiProcedure } from "@/server/api/trpc
 import { parseISO } from "date-fns";
 import { Octokit } from "octokit";
 
-export type StarredRepo = {
-	id: number;
+export type GutHubRepoId = number;
+
+export type GitHubRepo = {
+	id: GutHubRepoId;
 	name: string;
 	fullName: string;
 	private: boolean;
@@ -25,8 +27,8 @@ export const starsRouter = createTRPCRouter({
 		const response = await octokit.paginate(octokit.rest.activity.listReposStarredByAuthenticatedUser, {
 			per_page: 100
 		});
-		return response.map<StarredRepo>(repo =>
-			createDataComposer<StarredRepo>({
+		return response.map<GitHubRepo>(repo =>
+			createDataComposer<GitHubRepo>({
 				id: repo.id,
 				name: repo.name,
 				fullName: repo.full_name,

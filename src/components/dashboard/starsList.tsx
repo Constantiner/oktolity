@@ -1,7 +1,8 @@
 "use client";
 
 import { getStars } from "@/model/features/stars/starActions";
-import { selectIsStarsLoading, selectStarred, selectStarsErrorMessage } from "@/model/features/stars/starsSlice";
+import { selectStarredRepositories } from "@/model/features/stars/starsSelectors";
+import { selectIsStarsLoading, selectStarsErrorMessage } from "@/model/features/stars/starsSlice";
 import { useAppDispatch, useAppSelector } from "@/model/hooks";
 import { useEffect, type FunctionComponent } from "react";
 import { P as Pattern, match } from "ts-pattern";
@@ -10,7 +11,7 @@ import { P } from "../ui/typography";
 export const StarsList: FunctionComponent = () => {
 	const dispatch = useAppDispatch();
 	const isLoading = useAppSelector(selectIsStarsLoading);
-	const stars = useAppSelector(selectStarred);
+	const stars = useAppSelector(selectStarredRepositories);
 	const error = useAppSelector(selectStarsErrorMessage);
 
 	useEffect(() => {

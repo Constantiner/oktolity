@@ -1,8 +1,8 @@
 import { createAppAsyncThunk } from "@/model/hooks";
-import type { StarredRepo } from "@/server/api/routers/stars";
+import type { GitHubRepo } from "@/server/api/routers/stars";
 import { isTRPCClientError } from "@/trpc/client";
 
-export const getStars = createAppAsyncThunk<Readonly<Readonly<StarredRepo>[]>, void>(
+export const getStars = createAppAsyncThunk<Readonly<Readonly<GitHubRepo>[]>, void>(
 	"stars/getStars",
 	async (_, { extra }) => {
 		try {

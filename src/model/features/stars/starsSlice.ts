@@ -1,20 +1,21 @@
-import type { StarredRepo } from "@/server/api/routers/stars";
+import type { GitHubRepo, GutHubRepoId } from "@/server/api/routers/stars";
 import { createEntityAdapter, type EntityState } from "@reduxjs/toolkit";
 import { createAppSlice } from "../../createAppSlice";
 import { getStars } from "./starActions";
 
-const starsAdapter = createEntityAdapter<StarredRepo>();
-const starsSelectors = starsAdapter.getSelectors();
+export const repositoriesAdapter = createEntityAdapter<GitHubRepo>();
 
 export interface StarsSliceState {
-	stars: Readonly<EntityState<Readonly<StarredRepo>, number>>;
-	starsLoading: boolean;
-	starsErrorMessage?: string;
+	repositories: Readonly<EntityState<Readonly<GitHubRepo>, GutHubRepoId>>;
+	starredRepositories: Readonly<Readonly<GutHubRepoId>[]>;
+	initialStateLoading: boolean;
+	errorMessage?: string;
 }
 
 const initialState: StarsSliceState = {
-	stars: starsAdapter.getInitialState(),
-	starsLoading: false
+	repositories: repositoriesAdapter.getInitialState(),
+	starredRepositories: [],
+	initialStateLoading: false
 };
 
 // If you are not using async thunks you can use the standalone `createSlice`.
@@ -37,22 +38,22 @@ export const starsSlice = createAppSlice({
 
 		builder
 			.addCase(getStars.pending, state => {
-				state.starsLoading = true;
-				delete state.starsErrorMessage;
+				state.initialStateLoading = true;
+				delete state.errorMessage;
 			})
 			.addCase(getStars.fulfilled, (state, action) => {
-				starsAdapter.setAll(state.stars, action.payload);
-				state.starsLoading = false;
+				state.starredRepositories = action.payload.map(repo => repo.id);
+				repositoriesAdapter.setMany(state.repositories, action.payload);
+				state.initialStateLoading = false;
 			})
 			.addCase(getStars.rejected, (state, action) => {
-				state.starsErrorMessage = action.error.message;
-				state.starsLoading = false;
+				state.errorMessage = action.error.message;
+				state.initialStateLoading = false;
 			});
 	},
 	selectors: {
-		selectStarred: state => starsSelectors.selectAll(state.stars),
-		selectIsStarsLoading: state => state.starsLoading,
-		selectStarsErrorMessage: state => state.starsErrorMessage
+		selectIsStarsLoading: state => state.initialStateLoading,
+		selectStarsErrorMessage: state => state.errorMessage
 	}
 });
 
@@ -60,4 +61,4 @@ export const starsSlice = createAppSlice({
 export const { increment } = starsSlice.actions;
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
-export const { selectStarred, selectIsStarsLoading, selectStarsErrorMessage } = starsSlice.selectors;
+export const { selectIsStarsLoading, selectStarsErrorMessage } = starsSlice.selectors;
