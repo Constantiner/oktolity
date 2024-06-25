@@ -1,6 +1,6 @@
 "use client";
 
-import { getStars } from "@/model/features/stars/starActions";
+import { initAction } from "@/model/features/stars/starActions";
 import { selectStarredRepositories } from "@/model/features/stars/starsSelectors";
 import { selectIsStarsLoading, selectStarsErrorMessage } from "@/model/features/stars/starsSlice";
 import { useAppDispatch, useAppSelector } from "@/model/hooks";
@@ -15,7 +15,7 @@ export const StarsList: FunctionComponent = () => {
 	const error = useAppSelector(selectStarsErrorMessage);
 
 	useEffect(() => {
-		dispatch(getStars());
+		dispatch(initAction());
 	}, [dispatch]);
 
 	return match(isLoading)

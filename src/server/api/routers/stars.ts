@@ -2,6 +2,7 @@ import { createDataComposer } from "@/lib/dataComposer";
 import { createTRPCRouter, protectedGithubApiProcedure } from "@/server/api/trpc";
 import { parseISO } from "date-fns";
 import { Octokit } from "octokit";
+import "server-only";
 
 export type GutHubRepoId = number;
 
@@ -22,7 +23,7 @@ export type GitHubRepo = {
 };
 
 export const starsRouter = createTRPCRouter({
-	list: protectedGithubApiProcedure.query(async ({ ctx }) => {
+	listAll: protectedGithubApiProcedure.query(async ({ ctx }) => {
 		const octokit = new Octokit({ auth: ctx.session.access_token });
 		const response = await octokit.paginate(octokit.rest.activity.listReposStarredByAuthenticatedUser, {
 			per_page: 100
@@ -45,5 +46,20 @@ export const starsRouter = createTRPCRouter({
 				.setString("homepage", repo.homepage)
 				.get()
 		);
+	}),
+	listFavorites: protectedGithubApiProcedure.query(async ({ ctx }) => {
+		const favoriteStarredRepositories = await ctx.db.gitHubRepository.findMany({
+			where: {
+				usersAddedToFavorites: {
+					some: {
+						id: ctx.session.user.id
+					}
+				}
+			},
+			select: {
+				repoId: true
+			}
+		});
+		return favoriteStarredRepositories.map(repo => repo.repoId);
 	})
 });

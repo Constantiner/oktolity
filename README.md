@@ -4,6 +4,8 @@ T3 Stack (Next.js, Typescript, tRPC, Prisma, Tailwind CSS, NextAuth.js) applicat
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua) [![Made with Prisma](http://made-with.prisma.io/indigo.svg)](https:/prisma.io)
+
 ## What's next? How do I make an app with this?
 
 We try to keep this project as simple as possible so you can start with the scaffolding we set up for you and add additional things later when necessary.

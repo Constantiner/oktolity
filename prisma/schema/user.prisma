@@ -38,7 +38,7 @@ model User {
     sessions      Session[]
     posts         Post[]
     tags          Tag[]
-	favoriteRepos GitgubRepository[]
+	favoriteRepos GitHubRepository[]
 }
 
 model VerificationToken {

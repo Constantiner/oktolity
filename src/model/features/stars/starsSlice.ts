@@ -1,21 +1,26 @@
 import type { GitHubRepo, GutHubRepoId } from "@/server/api/routers/stars";
 import { createEntityAdapter, type EntityState } from "@reduxjs/toolkit";
+import { castDraft } from "immer";
 import { createAppSlice } from "../../createAppSlice";
-import { getStars } from "./starActions";
+import { getFavorites, getStars, initAction } from "./starActions";
 
 export const repositoriesAdapter = createEntityAdapter<GitHubRepo>();
 
 export interface StarsSliceState {
 	repositories: Readonly<EntityState<Readonly<GitHubRepo>, GutHubRepoId>>;
-	starredRepositories: Readonly<Readonly<GutHubRepoId>[]>;
+	starredRepositories: ReadonlyArray<GutHubRepoId>;
+	favoriteStarredRepositories: ReadonlyArray<GutHubRepoId>;
 	initialStateLoading: boolean;
+	initialized: boolean;
 	errorMessage?: string;
 }
 
 const initialState: StarsSliceState = {
 	repositories: repositoriesAdapter.getInitialState(),
 	starredRepositories: [],
-	initialStateLoading: false
+	favoriteStarredRepositories: [],
+	initialStateLoading: false,
+	initialized: false
 };
 
 // If you are not using async thunks you can use the standalone `createSlice`.
@@ -37,18 +42,24 @@ export const starsSlice = createAppSlice({
 		// Add reducers for additional action types here, and handle loading state as needed
 
 		builder
-			.addCase(getStars.pending, state => {
+			.addCase(initAction.pending, state => {
 				state.initialStateLoading = true;
 				delete state.errorMessage;
+			})
+			.addCase(initAction.fulfilled, state => {
+				state.initialStateLoading = false;
+				state.initialized = true;
+			})
+			.addCase(initAction.rejected, (state, action) => {
+				state.errorMessage = action.error.message;
+				state.initialStateLoading = false;
 			})
 			.addCase(getStars.fulfilled, (state, action) => {
 				state.starredRepositories = action.payload.map(repo => repo.id);
 				repositoriesAdapter.setMany(state.repositories, action.payload);
-				state.initialStateLoading = false;
 			})
-			.addCase(getStars.rejected, (state, action) => {
-				state.errorMessage = action.error.message;
-				state.initialStateLoading = false;
+			.addCase(getFavorites.fulfilled, (state, action) => {
+				state.favoriteStarredRepositories = castDraft(action.payload);
 			});
 	},
 	selectors: {

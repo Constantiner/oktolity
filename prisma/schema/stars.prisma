@@ -1,4 +1,4 @@
-model GitgubRepository {
+model GitHubRepository {
     id                    String                       @id @default(cuid())
     repoId                Int                          @unique
     tags                  Tag[]
@@ -14,7 +14,7 @@ model Tag {
     updatedAt    DateTime      @updatedAt
     createdBy    User          @relation(fields: [createdById], references: [id])
     createdById  String
-	taggedRepositories GitgubRepository[]
+	taggedRepositories GitHubRepository[]
 
     @@unique([name, createdById])
     @@unique([slug, createdById])

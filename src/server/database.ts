@@ -6,13 +6,14 @@ type PrismaClientOptions = {
 	log: Prisma.LogLevel[];
 };
 
-export type DatabaseClient = PrismaClient<PrismaClientOptions>;
-
 const prismaClientOptions: PrismaClientOptions = {
 	log: environment.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"]
 };
 
-const createPrismaClient = (): DatabaseClient => new PrismaClient(prismaClientOptions);
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const createPrismaClient = () => new PrismaClient(prismaClientOptions);
+
+export type DatabaseClient = ReturnType<typeof createPrismaClient>;
 
 const globalForPrisma = globalThis as unknown as {
 	prisma: DatabaseClient | undefined;
