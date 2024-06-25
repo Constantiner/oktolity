@@ -50,7 +50,7 @@ export const initAction = createAppAsyncThunk<void, void>("stars/init", async (_
 		if (getState().stars.initialized) {
 			return;
 		}
-		await Promise.all([dispatch(getStars()), dispatch(getFavorites())]);
+		await Promise.all([dispatch(getStars()).unwrap(), dispatch(getFavorites()).unwrap()]);
 	} catch (error) {
 		throw createStarsError(error);
 	}

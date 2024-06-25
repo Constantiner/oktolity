@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/model/hooks";
 import { useEffect, type FunctionComponent } from "react";
 import { P as Pattern, match } from "ts-pattern";
 import { P } from "../ui/typography";
+import { Button } from "../ui/button";
 
 export const StarsList: FunctionComponent = () => {
 	const dispatch = useAppDispatch();
@@ -23,6 +24,13 @@ export const StarsList: FunctionComponent = () => {
 		.otherwise(() =>
 			match(error)
 				.with(Pattern.nullish, () => stars.map(star => <div key={star.id}>{star.name}</div>))
-				.otherwise(error => <P variant="error">{error}</P>)
+				.otherwise(error => (
+					<>
+						<P variant="error">{error}</P>
+						<Button className="mt-2" variant="destructive" onClick={() => dispatch(initAction())}>
+							Retry
+						</Button>
+					</>
+				))
 		);
 };
