@@ -1,8 +1,8 @@
 "use client";
 
 import { initAction } from "@/model/features/stars/starActions";
-import { selectStarredRepositories } from "@/model/features/stars/starsSelectors";
-import { selectIsStarsLoading, selectStarsErrorMessage } from "@/model/features/stars/starsSlice";
+import { selectStarredRepositories } from "@/model/features/stars/starSelectors";
+import { selectIsStarsLoading, selectStarsErrorMessage } from "@/model/features/stars/starSlice";
 import { useAppDispatch, useAppSelector } from "@/model/hooks";
 import { useEffect, type FunctionComponent } from "react";
 import { P as Pattern, match } from "ts-pattern";

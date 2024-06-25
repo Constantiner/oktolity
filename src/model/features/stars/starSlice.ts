@@ -2,12 +2,16 @@ import type { GitHubRepo, GutHubRepoId } from "@/server/api/routers/stars";
 import { createEntityAdapter, type EntityState } from "@reduxjs/toolkit";
 import { castDraft } from "immer";
 import { createAppSlice } from "../../createAppSlice";
-import { getFavorites, getStars, initAction } from "./starActions";
+import { getFavorites, getStars, getTags, initAction } from "./starActions";
+import type { UserTag, UserTagId } from "./starTypes";
+
+export const tagsAdapter = createEntityAdapter<UserTag>();
 
 export const repositoriesAdapter = createEntityAdapter<GitHubRepo>();
 
 export interface StarsSliceState {
 	repositories: Readonly<EntityState<Readonly<GitHubRepo>, GutHubRepoId>>;
+	tags: Readonly<EntityState<Readonly<UserTag>, UserTagId>>;
 	starredRepositories: ReadonlyArray<GutHubRepoId>;
 	favoriteStarredRepositories: ReadonlyArray<GutHubRepoId>;
 	initialStateLoading: boolean;
@@ -17,6 +21,7 @@ export interface StarsSliceState {
 
 const initialState: StarsSliceState = {
 	repositories: repositoriesAdapter.getInitialState(),
+	tags: tagsAdapter.getInitialState(),
 	starredRepositories: [],
 	favoriteStarredRepositories: [],
 	initialStateLoading: false,
@@ -60,6 +65,9 @@ export const starsSlice = createAppSlice({
 			})
 			.addCase(getFavorites.fulfilled, (state, action) => {
 				state.favoriteStarredRepositories = castDraft(action.payload);
+			})
+			.addCase(getTags.fulfilled, (state, action) => {
+				tagsAdapter.setMany(state.tags, action.payload);
 			});
 	},
 	selectors: {

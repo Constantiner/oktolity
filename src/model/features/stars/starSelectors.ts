@@ -2,7 +2,7 @@ import { isNonNullable } from "@/lib/types/nullable";
 import type { RootState } from "@/model/store";
 import type { GutHubRepoId } from "@/server/api/routers/stars";
 import { createSelector } from "@reduxjs/toolkit";
-import { repositoriesAdapter, type StarsSliceState } from "./starsSlice";
+import { repositoriesAdapter, type StarsSliceState } from "./starSlice";
 
 const repositoriesSelectors = repositoriesAdapter.getSelectors();
 

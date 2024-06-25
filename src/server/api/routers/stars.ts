@@ -1,5 +1,5 @@
 import { createDataComposer } from "@/lib/dataComposer";
-import { createTRPCRouter, protectedGithubApiProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, protectedGithubApiProcedure, protectedProcedure } from "@/server/api/trpc";
 import { parseISO } from "date-fns";
 import { Octokit } from "octokit";
 import "server-only";
@@ -47,7 +47,7 @@ export const starsRouter = createTRPCRouter({
 				.get()
 		);
 	}),
-	listFavorites: protectedGithubApiProcedure.query(async ({ ctx }) => {
+	listFavorites: protectedProcedure.query(async ({ ctx }) => {
 		const favoriteStarredRepositories = await ctx.db.gitHubRepository.findMany({
 			where: {
 				usersAddedToFavorites: {
@@ -61,5 +61,16 @@ export const starsRouter = createTRPCRouter({
 			}
 		});
 		return favoriteStarredRepositories.map(repo => repo.repoId);
+	}),
+	listTags: protectedProcedure.query(async ({ ctx }) => {
+		const tags = await ctx.db.tag.findMany({
+			where: {
+				createdById: ctx.session.user.id
+			},
+			omit: {
+				createdById: true
+			}
+		});
+		return tags;
 	})
 });

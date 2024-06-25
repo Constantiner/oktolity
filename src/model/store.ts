@@ -1,7 +1,7 @@
 import { trpcClient } from "@/trpc/client";
 import type { Action, SerializableStateInvariantMiddlewareOptions, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore, isPlain } from "@reduxjs/toolkit";
-import { starsSlice } from "./features/stars/starsSlice";
+import { starsSlice } from "./features/stars/starSlice";
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
