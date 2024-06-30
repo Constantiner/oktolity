@@ -2,6 +2,7 @@ import { createAppAsyncThunk } from "@/model/hooks";
 import type { GitHubRepo, GutHubRepoId } from "@/server/api/routers/stars";
 import { isTRPCClientError } from "@/trpc/client";
 import { match } from "ts-pattern";
+import { startInitialLoading } from "./starSlice";
 import type { UserTag } from "./starTypes";
 
 class StarsError extends Error {
@@ -58,16 +59,18 @@ export const getTags = createAppAsyncThunk<Readonly<Readonly<UserTag>[]>, void>(
 	}
 );
 
-export const initAction = createAppAsyncThunk<void, void>("stars/init", async (_, { dispatch, getState }) => {
+export const initAction = createAppAsyncThunk<boolean, void>("stars/init", async (_, { dispatch, getState }) => {
 	try {
-		if (getState().stars.initialized) {
-			return;
+		if (getState().stars.initialized || getState().stars.initialStateLoading) {
+			return false;
 		}
+		dispatch(startInitialLoading());
 		await Promise.all([
 			dispatch(getStars()).unwrap(),
 			dispatch(getFavorites()).unwrap(),
 			dispatch(getTags()).unwrap()
 		]);
+		return true;
 	} catch (error) {
 		throw createStarsError(error);
 	}

@@ -1,36 +1,22 @@
 "use client";
 
-import { initAction } from "@/model/features/stars/starActions";
 import { selectStarredRepositories } from "@/model/features/stars/starSelectors";
-import { selectIsStarsLoading, selectStarsErrorMessage } from "@/model/features/stars/starSlice";
-import { useAppDispatch, useAppSelector } from "@/model/hooks";
-import { useEffect, type FunctionComponent } from "react";
-import { P as Pattern, match } from "ts-pattern";
+import { useAppSelector } from "@/model/hooks";
+import { type FunctionComponent } from "react";
+import { WithInitialLoading } from "./common/withInitialLoading";
+import { match } from "ts-pattern";
 import { P } from "../ui/typography";
-import { Button } from "../ui/button";
 
 export const StarsList: FunctionComponent = () => {
-	const dispatch = useAppDispatch();
-	const isLoading = useAppSelector(selectIsStarsLoading);
 	const stars = useAppSelector(selectStarredRepositories);
-	const error = useAppSelector(selectStarsErrorMessage);
 
-	useEffect(() => {
-		dispatch(initAction());
-	}, [dispatch]);
-
-	return match(isLoading)
-		.with(true, () => <P>Loading...</P>)
-		.otherwise(() =>
-			match(error)
-				.with(Pattern.nullish, () => stars.map(star => <div key={star.id}>{star.name}</div>))
-				.otherwise(error => (
-					<>
-						<P variant="error">{error}</P>
-						<Button className="mt-2" variant="destructive" onClick={() => dispatch(initAction())}>
-							Retry
-						</Button>
-					</>
-				))
-		);
+	return (
+		<WithInitialLoading>
+			<>
+				{match(stars.length)
+					.with(0, () => <P>Not yet starred</P>)
+					.otherwise(() => stars.map(star => <div key={star.id}>{star.name}</div>))}
+			</>
+		</WithInitialLoading>
+	);
 };

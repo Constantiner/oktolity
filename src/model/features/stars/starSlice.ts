@@ -16,7 +16,7 @@ export interface StarsSliceState {
 	favoriteStarredRepositories: ReadonlyArray<GutHubRepoId>;
 	initialStateLoading: boolean;
 	initialized: boolean;
-	errorMessage?: string;
+	initialStateErrorMessage?: string;
 }
 
 const initialState: StarsSliceState = {
@@ -35,28 +35,24 @@ export const starsSlice = createAppSlice({
 	initialState,
 	// The `reducers` field lets us define reducers and generate associated actions
 	reducers: create => ({
-		increment: create.reducer(() => {
-			// Redux Toolkit allows us to write "mutating" logic in reducers. It
-			// doesn't actually mutate the state because it uses the Immer library,
-			// which detects changes to a "draft state" and produces a brand new
-			// immutable state based off those changes
-			// state.stars = [];
+		startInitialLoading: create.reducer(state => {
+			state.initialStateLoading = true;
 		})
 	}),
 	extraReducers: builder => {
 		// Add reducers for additional action types here, and handle loading state as needed
-
 		builder
 			.addCase(initAction.pending, state => {
-				state.initialStateLoading = true;
-				delete state.errorMessage;
+				delete state.initialStateErrorMessage;
 			})
-			.addCase(initAction.fulfilled, state => {
-				state.initialStateLoading = false;
-				state.initialized = true;
+			.addCase(initAction.fulfilled, (state, action) => {
+				if (action.payload) {
+					state.initialStateLoading = false;
+					state.initialized = true;
+				}
 			})
 			.addCase(initAction.rejected, (state, action) => {
-				state.errorMessage = action.error.message;
+				state.initialStateErrorMessage = action.error.message;
 				state.initialStateLoading = false;
 			})
 			.addCase(getStars.fulfilled, (state, action) => {
@@ -71,13 +67,13 @@ export const starsSlice = createAppSlice({
 			});
 	},
 	selectors: {
-		selectIsStarsLoading: state => state.initialStateLoading,
-		selectStarsErrorMessage: state => state.errorMessage
+		selectInitialStateLoading: state => state.initialStateLoading,
+		selectInitialStateLoadingErrorMessage: state => state.initialStateErrorMessage
 	}
 });
 
 // Action creators are generated for each case reducer function.
-export const { increment } = starsSlice.actions;
+export const { startInitialLoading } = starsSlice.actions;
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
-export const { selectIsStarsLoading, selectStarsErrorMessage } = starsSlice.selectors;
+export const { selectInitialStateLoading, selectInitialStateLoadingErrorMessage } = starsSlice.selectors;
