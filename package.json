@@ -51,7 +51,7 @@
 		"@radix-ui/react-visually-hidden": "^1.1.0",
 		"@reduxjs/toolkit": "^2.2.6",
 		"@t3-oss/env-nextjs": "^0.10.1",
-		"@tanstack/react-query": "^5.49.2",
+		"@tanstack/react-query": "^5.50.1",
 		"@trpc/client": "next",
 		"@trpc/react-query": "next",
 		"@trpc/server": "next",
@@ -62,7 +62,7 @@
 		"crypto": "^1.0.1",
 		"date-fns": "^3.6.0",
 		"immer": "^10.1.1",
-		"lucide-react": "^0.399.0",
+		"lucide-react": "^0.400.0",
 		"next": "rc",
 		"next-auth": "beta",
 		"next-themes": "^0.3.0",
@@ -88,8 +88,8 @@
 		"@types/node": "^20.14.9",
 		"@types/react": "npm:types-react@rc",
 		"@types/react-dom": "npm:types-react-dom@rc",
-		"@typescript-eslint/eslint-plugin": "^7.14.1",
-		"@typescript-eslint/parser": "^7.14.1",
+		"@typescript-eslint/eslint-plugin": "^7.15.0",
+		"@typescript-eslint/parser": "^7.15.0",
 		"babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
 		"dotenv-cli": "^7.4.2",
 		"eslint": "^8.57.0",
@@ -106,7 +106,7 @@
 		"eslint-plugin-security": "^3.0.1",
 		"eslint-plugin-tailwindcss": "^3.17.4",
 		"eslint-plugin-unicorn": "^54.0.0",
-		"globals": "^15.7.0",
+		"globals": "^15.8.0",
 		"husky": "^9.0.11",
 		"lint-staged": "^15.2.7",
 		"postcss": "^8.4.39",
@@ -115,8 +115,8 @@
 		"prettier-plugin-tailwindcss": "^0.6.5",
 		"prisma": "^5.16.1",
 		"tailwindcss": "^3.4.4",
-		"typescript": "^5.5.2",
-		"typescript-eslint": "^7.14.1"
+		"typescript": "^5.5.3",
+		"typescript-eslint": "^7.15.0"
 	},
 	"engines": {
 		"node": ">=20.0.0"
