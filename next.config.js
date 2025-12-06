@@ -10,7 +10,8 @@ await import("./src/environment.js");
 const config = {
 	experimental: {
 		reactCompiler: true,
-		ppr: true
+		// Disable PPR: only supported on Next.js canary
+		ppr: false
 	}
 };
 

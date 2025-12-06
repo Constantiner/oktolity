@@ -59,5 +59,5 @@ docker run -d \
   -e POSTGRES_USER="$DB_USER" \
   -e POSTGRES_DB="$DB_NAME" \
   -p 5432:5432 \
-   -v $HOME/docker/volumes/postgres-oktolity-dev:/var/lib/postgresql/data \
-  docker.io/postgres && echo "Database container '$DB_CONTAINER_NAME' was successfully created"
+  -v $HOME/docker/volumes/postgres-oktolity-dev:/var/lib/postgresql \
+  docker.io/postgres:16 && echo "Database container '$DB_CONTAINER_NAME' was successfully created"
